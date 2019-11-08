@@ -124,6 +124,7 @@ function [images, labels] = getBatch(imdb, batch, use_gpu)
 % from disk instead (with indexes given in 'batch').
 
 images = imdb.images.data(:,:,:,batch) ;
+images = images - imdb.images.data_mean;
 labels = imdb.images.labels(batch) ;
 
 if use_gpu
