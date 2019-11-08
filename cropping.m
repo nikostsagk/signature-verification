@@ -16,7 +16,7 @@
 %                    centered signature, exempted from excess information.
 % forgeries        : -"-
 
-signature_path = strcat(pwd,'/data/');
+signature_path = fullfile(pwd,'data');
 database_name = 'CEDAR';
 thinning_level = 1;
 writer_number = 55;

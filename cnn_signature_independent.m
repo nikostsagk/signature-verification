@@ -1,6 +1,6 @@
 function [net, stats] = cnn_writer_independent(varargin)
 
-run 'matlab/vl_setupnn.m'
+run '../matlab/vl_setupnn.m'
 
 
 % Parameter defaults.
@@ -9,8 +9,8 @@ opts.train.numEpochs = 30 ;
 opts.train.continue = true ;
 opts.train.gpus = 1 ;
 opts.train.learningRate = 0.001 ;
-opts.expDir = fullfile(vl_rootnn, 'data','CEDAR-adam-') ;
-opts.dataDir = fullfile(vl_rootnn, 'data', 'D_set.mat');
+opts.expDir = fullfile(vl_rootnn, 'signature-verification', 'data', 'CEDAR-adam-') ;
+opts.dataDir = fullfile(vl_rootnn, 'signature-verification', 'data', 'D_set.mat');
 [opts, varargin] = vl_argparse(opts, varargin) ;
 
 opts = vl_argparse(opts, varargin) ;
