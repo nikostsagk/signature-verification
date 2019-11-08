@@ -162,6 +162,7 @@ E.images.data = reshape(z, ref_h, ref_w, 1, []);
 E.images.data_mean = mean(E.images.data(:,:,:,E.images.set == 1), 4);
 
 D.images.labels = D.images.labels - 11; % Classes should start from 0-44
+E.images.labels = E.images.labels - 1;  % Classes should start from 0-9
 
 save(fullfile(pwd, 'data','D_set'),'D');
 save(fullfile(pwd, 'data','E_set'),'E');

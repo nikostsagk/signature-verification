@@ -9,7 +9,7 @@ opts.train.numEpochs = 30 ;
 opts.train.continue = true ;
 opts.train.gpus = 1 ;
 opts.train.learningRate = 0.001 ;
-opts.expDir = fullfile(vl_rootnn, 'signature-verification', 'data', 'CEDAR-adam-') ;
+opts.expDir = fullfile(vl_rootnn, 'signature-verification', 'data', 'CEDAR-adam') ;
 opts.dataDir = fullfile(vl_rootnn, 'signature-verification', 'data', 'D_set.mat');
 [opts, varargin] = vl_argparse(opts, varargin) ;
 
@@ -101,7 +101,7 @@ use_gpu = ~isempty(opts.train.gpus) ;
 
 % Start training
 [net, stats] = cnn_train(net, imdb, @(imdb, batch) getBatch(imdb, batch, use_gpu), ...
-  'train', find(imdb.images.set == 1), 'val', find(imdb.images.set == 2), opts.train) ;
+  'train', find(imdb.images.set == 1), 'val', find(imdb.images.set == 2), opts.train, opts.expDir) ;
 
 %---------------------------------------------------------------------
 %                                        Visualize the learned filters
