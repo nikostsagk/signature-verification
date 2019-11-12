@@ -42,11 +42,17 @@ wget https://github.com/nikostsagk/signature-verification/releases/download/ceda
 unzip cedar_dataset.zip
 ```
 Normally a `full_org` and a `full_forg` folder will be created.
+
 4) Run the `cropping.m` script to obtain a .mat file with thinned, centered signatures exempted from excess information.
+
 5) Run the `data_preparation.m` script to get the D and E sets as `data/D_set.mat` and `data/E_set.mat` files.
+
 6) Run the `cnn_signature_independent.m` script to train the CNN.
+
 7) You can check the progress of the CNN training by navigating to the <MatConvNet>/data/CEDAR folder.
+  
 8) Run `feature_extraction.m` to update the `E_set.mat` set with the extracted features.
+
 9) Run the `svm.m` script to train the writer dependent SVMs and test on the testing dataset.
 
 ## Cite
