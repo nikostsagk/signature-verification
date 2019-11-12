@@ -18,7 +18,7 @@ function [net, stats] = cnn_train(net, imdb, getBatch, varargin)
 % the terms of the BSD license (see the COPYING file).
 addpath(fullfile(vl_rootnn, 'examples'));
 
-opts.expDir = fullfile(vl_rootnn, 'data','CEDAR-adam-') ;
+opts.expDir = fullfile(vl_rootnn, 'data','CEDAR') ;
 opts.continue = true ;
 opts.batchSize = 128 ;
 opts.numSubBatches = 1 ;

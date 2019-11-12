@@ -116,8 +116,13 @@ end
 
 data = cat(1, reshape(original',[],1), reshape(rndm_forgeries',[],1), reshape(forgeries',[],1));
 labels = cat(1, reshape(labels',[],1), reshape(rndm_labels',[],1), reshape(labels',[],1));
+identities = cat(1, repmat({'original'}, numel(original), 1), ...
+                  repmat({'random_forgery'}, numel(rndm_forgeries), 1), ...
+                  repmat({'skilled_forgery'}, numel(forgeries), 1));
+              
 E.images.data = single(zeros(ref_h, ref_w, 1, length(data)));
 E.images.labels = cell2mat(labels');
+E.images.identities = identities;
 
 for i=1:size(E.images.data,4)
     E.images.data(:,:,1,i) = single(cell2mat(data(i)));
@@ -128,6 +133,7 @@ end
 %% Setting train val on Development set
 D.meta.sets = {'train','val','test'};
 E.meta.sets = D.meta.sets;
+E.meta.identities = {'original', 'random_forgery', 'skilled_forgery'};
 
 D.meta.classes = arrayfun(@(x)sprintf('%d',x),11:55,'uniformoutput',false);
 E.meta.classes = arrayfun(@(x)sprintf('%d',x),1:10,'uniformoutput',false);
@@ -142,8 +148,8 @@ for i=1:numel(D.images.labels)
         end
 end
 
-E.images.set = ones(numel(E.images.labels),1);
 % train: 14 genuine + 14 random forgeries | test: 10 genuine + 24 sk. forgeries
+E.images.set = ones(numel(E.images.labels),1);
 E.images.set(141:240) = 3; E.images.set(381:end) = 3;
     
 %% Standardizing
