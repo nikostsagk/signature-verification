@@ -5,7 +5,7 @@ run '../matlab/vl_setupnn.m'
 
 % Parameter defaults.
 opts.train.batchSize = 128 ;
-opts.train.numEpochs = 30 ;
+opts.train.numEpochs = 100 ;
 opts.train.continue = true ;
 opts.train.gpus = 1 ;
 opts.train.learningRate = 0.001 ;
@@ -87,7 +87,7 @@ net.meta.inputSize = [80 120 1];
 net.meta.trainOpts.learningRate = 0.001; %[0.3*ones(1,20) 0.01*ones(1,20) 0.001*ones(1,20) 0.0001*ones(1,20)];
 net.meta.trainOpts.weightDecay = 0.0005;
 net.meta.trainOpts.momentum = 0.3;
-net.meta.trainOpts.numEpochs = 30; 
+net.meta.trainOpts.numEpochs = 100; 
 net.meta.trainOpts.batchSize = 128;
 
 net = vl_simplenn_tidy(net) ;
@@ -101,7 +101,7 @@ use_gpu = ~isempty(opts.train.gpus) ;
 
 % Start training
 [net, stats] = cnn_train(net, imdb, @(imdb, batch) getBatch(imdb, batch, use_gpu), ...
-  'train', find(imdb.images.set == 1), 'val', find(imdb.images.set == 2), opts.train, opts.expDir) ;
+  'train', find(imdb.images.set == 1), 'val', find(imdb.images.set == 2), opts.train) ;
 
 %---------------------------------------------------------------------
 %                                        Visualize the learned filters

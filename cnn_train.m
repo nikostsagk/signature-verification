@@ -27,7 +27,7 @@ opts.val = [] ;
 opts.gpus = [] ;
 opts.epochSize = inf;
 opts.prefetch = false ;
-opts.numEpochs = 30 ;
+opts.numEpochs = 100 ;
 opts.learningRate = 0.001 ;
 opts.weightDecay = 0.0005 ;
 
