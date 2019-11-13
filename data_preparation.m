@@ -83,9 +83,11 @@ data = reshape(imdb.augmented.original',[],1); % 3240 original
 data = cat(1, data, reshape(imdb.augmented.forgeries',[],1)); % plus 3240 forgeries
 labels = reshape(imdb.augmented.labels',[],1)';
 labels = repmat(labels,1,2);
+identities = cat(1, ones(numel(imdb.augmented.original), 1), 3*ones(numel(imdb.augmented.forgeries), 1));
 
 D.images.data = single(zeros(ref_h, ref_w, 1, length(data)));
 D.images.labels = labels;
+D.images.identities = identities;
 
 for i=1:size(D.images.data,4)
     D.images.data(:,:,1,i) = single(cell2mat(data(i)));
@@ -116,9 +118,7 @@ end
 
 data = cat(1, reshape(original',[],1), reshape(rndm_forgeries',[],1), reshape(forgeries',[],1));
 labels = cat(1, reshape(labels',[],1), reshape(rndm_labels',[],1), reshape(labels',[],1));
-identities = cat(1, repmat({'original'}, numel(original), 1), ...
-                  repmat({'random_forgery'}, numel(rndm_forgeries), 1), ...
-                  repmat({'skilled_forgery'}, numel(forgeries), 1));
+identities = cat(1, ones(numel(original), 1), 2*ones(numel(rndm_forgeries), 1), 3*ones(numel(forgeries), 1));
               
 E.images.data = single(zeros(ref_h, ref_w, 1, length(data)));
 E.images.labels = cell2mat(labels');
@@ -128,12 +128,11 @@ for i=1:size(E.images.data,4)
     E.images.data(:,:,1,i) = single(cell2mat(data(i)));
 end
 
-
-
 %% Setting train val on Development set
 D.meta.sets = {'train','val','test'};
+D.meta.identities = {'original', 'random_forgery', 'skilled_forgery'};
 E.meta.sets = D.meta.sets;
-E.meta.identities = {'original', 'random_forgery', 'skilled_forgery'};
+E.meta.identities = D.meta.identities;
 
 D.meta.classes = arrayfun(@(x)sprintf('%d',x),11:55,'uniformoutput',false);
 E.meta.classes = arrayfun(@(x)sprintf('%d',x),1:10,'uniformoutput',false);

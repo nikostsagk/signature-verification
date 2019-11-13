@@ -18,7 +18,7 @@ for c=E.meta.classes
     split = 0;
     for i=1:numel(E.images.labels)
 
-        if isequal(E.images.labels(1,i),label) && strcmp(E.images.identities{i,1},'original')
+        if isequal(E.images.labels(1,i),label) && isequal(E.images.identities(i,1),1) % 'original' identity = 1
             if split < 14
                 E.images.set(i,1) = 1;
                 split = split + 1;
@@ -32,7 +32,7 @@ for c=E.meta.classes
 end
 
 %% SVM training
-z = E.images.features(strcmp(E.images.identities,'random_forgery'),:);
+z = E.images.features(E.images.identities == 2,:); % identity = 2 : random forgery
 rf_idx = (1:14);
 models = cell(numel(E.meta.classes),1);
 for c=E.meta.classes

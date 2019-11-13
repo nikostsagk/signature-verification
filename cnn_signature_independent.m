@@ -125,7 +125,13 @@ function [images, labels] = getBatch(imdb, batch, use_gpu)
 
 images = imdb.images.data(:,:,:,batch) ;
 images = images - imdb.images.data_mean;
-labels = imdb.images.labels(batch) ;
+% For signature dependent
+%labels = imdb.images.labels(batch) ; 
+
+% For signature independent
+labels = imdb.images.identities(batch);
+labels(labels == 1) = 0; % original 0
+labels(labels == 3) = 1; % forgeries 1
 
 if use_gpu
   images = gpuArray(images) ;
